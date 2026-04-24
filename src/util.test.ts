@@ -1,0 +1,1 @@
+export const testFn = (args: { a: number, b: string }) => args.b.repeat(args.a);

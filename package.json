@@ -1,6 +1,6 @@
 {
   "name": "@gershy/script-bundle",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "TODO",
   "keywords": [
     "TODO"
@@ -19,11 +19,22 @@
     "@gershy/clearing": "^0.0.36"
   },
   "devDependencies": {
+    "@gershy/logger": "^0.0.8",
     "@types/node": "^24.10.1",
+    "terser-webpack-plugin": "^5.3.11",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@gershy/disk": "^0.0.13",
+    "@gershy/nodejs-proc": "^0.0.7",
+    "@gershy/util-hash": "^0.0.5",
+    "@gershy/util-jsfn-encode": "^0.0.2",
+    "@gershy/util-slash-escape": "^0.0.2",
+    "esbuild": "^0.28.0",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.98.0"
+  },
   "type": "module",
   "files": [
     "cmp"

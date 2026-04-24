@@ -1,5 +1,7 @@
+import Logger from '@gershy/logger';
+import { rootFact, tempFact } from '@gershy/disk';
 import { assertEqual, testRunner } from '../build/utils.test.ts';
-import './main.ts';
+import scriptBundle, { runCjsBundleInEsm } from './main.ts';
 
 // Type testing
 (async () => {
@@ -14,9 +16,25 @@ import './main.ts';
 
 testRunner([
   
-  { name: 'not implemented', fn: async () => {
+  { name: 'basic test', fn: async () => {
     
-    // TODO: Implement!
+    const bundle = await scriptBundle({
+      logger:    Logger.dummy,
+      term:      'myCoolFunc',
+      platform:  'node/cjs',
+      debug: true,
+      dirFact: rootFact.kid([ import.meta.dirname ]),
+      script: String[cl.baseline](`
+        | import '@gershy/clearing';
+        | import { testFn } from './util.test.ts';
+        | module.exports.result = ('Y' + testFn({ a: 5, b: 'O' }))[cl.lower]();
+      `)
+    });
+    
+    assertEqual(
+      await runCjsBundleInEsm(bundle),
+      { result: 'yooooo' }
+    );
     
   }}
   
