@@ -1,7 +1,7 @@
-import Logger from '@gershy/logger';
-import { rootFact, tempFact } from '@gershy/disk';
+import { rootFact } from '@gershy/disk';
 import { assertEqual, testRunner } from '../build/utils.test.ts';
-import scriptBundle, { runCjsBundleInEsm } from './main.ts';
+import scriptBundle from './main.ts';
+import evalCjs from './evalCjs/main.ts';
 
 // Type testing
 (async () => {
@@ -11,6 +11,7 @@ import scriptBundle, { runCjsBundleInEsm } from './main.ts';
   type Tests = {
     1: Enforce<{ x: 'y' }, { x: 'y' }>,
   };
+  if (0) ((v?: Tests) => void 0)();
   
 })();
 
@@ -19,21 +20,21 @@ testRunner([
   { name: 'basic test', fn: async () => {
     
     const bundle = await scriptBundle({
-      logger:    Logger.dummy,
-      term:      'myCoolFunc',
       platform:  'node/cjs',
       debug: true,
       dirFact: rootFact.kid([ import.meta.dirname ]),
       script: String[cl.baseline](`
         | import '@gershy/clearing';
-        | import { testFn } from './util.test.ts';
-        | module.exports.result = ('Y' + testFn({ a: 5, b: 'O' }))[cl.lower]();
+        | import { testFn } from './import.test.ts';
+        | export default 123;
+        | export const result = ('Y' + testFn({ a: 5, b: 'O' }))[cl.lower]();
+        | export const another = 'hello';
       `)
     });
     
     assertEqual(
-      await runCjsBundleInEsm(bundle),
-      { result: 'yooooo' }
+      await evalCjs({ meta: import.meta, bundle }),
+      { default: 123, result: 'yooooo', another: 'hello' }
     );
     
   }}
