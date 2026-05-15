@@ -2,11 +2,6 @@ import '@gershy/clearing';
 import esbuild from 'esbuild';
 import type { Fact } from '@gershy/disk';
 
-// TODO: HEEERE2! Can't build this package due to CJS + `import.meta` annoyances...
-// - Switch from `tsc` to `esbuild` to build npm packages!
-// - Finally run .manager's `{ act: 'setCommit', unit: 'scriptBundle' }`
-// - Go back to lambda, which can now bundle its shizzzzz
-
 type ScriptBundleArgs = {
   
   platform:            'node/esm' | 'node/cjs' | 'web',
@@ -36,6 +31,7 @@ export default async (args: ScriptBundleArgs) => {
     define:      { 'import.meta': replaceTrg('import.meta'), },
     logLevel:    'silent',
     bundle:      true,
+    keepNames:   false, // Avoids any insertion of esbuild's `__name` transform helper
     platform:    ({ 'node/esm': 'node', 'node/cjs': 'node', web: 'browser' } as const)[platform],
     format:      ({ 'node/esm': 'esm',  'node/cjs': 'cjs',  web: 'iife'    } as const)[platform],
     minify:      !debug,
