@@ -31,14 +31,18 @@ export default async (args: ScriptBundleArgs) => {
     define:      { 'import.meta': replaceTrg('import.meta'), },
     logLevel:    'silent',
     bundle:      true,
-    keepNames:   false, // Avoids any insertion of esbuild's `__name` transform helper
+    keepNames:   false, // Avoids some insertions of esbuild's `__name` transform helper
     platform:    ({ 'node/esm': 'node', 'node/cjs': 'node', web: 'browser' } as const)[platform],
     format:      ({ 'node/esm': 'esm',  'node/cjs': 'cjs',  web: 'iife'    } as const)[platform],
     minify:      !debug,
     write:       false,
     sourcemap:   debug ? 'inline' : false,
     external:    externalImportPaths ?? []
-  }).catch(cause => err[cl.fire]({ msg: cause.message, ...cause[cl.slice]([ 'errors', 'warnings' ])[cl.map](arr => arr.map(v => v[cl.slice]([ 'text', 'location' ]))) }));
+  })
+    .catch(cause => err[cl.fire]({
+      msg: cause.message,
+      ...cause[cl.slice]([ 'errors', 'warnings' ])[cl.map](arr => arr.map(v => v[cl.slice]([ 'text', 'location' ])))
+    }));
   
   return Buffer.from(result.outputFiles[0].contents)
     .toString('utf8')
