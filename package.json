@@ -1,6 +1,6 @@
 {
   "name": "@gershy/script-bundle",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "author": "Gershom Maes",
   "description": "TODO",
   "keywords": [
@@ -20,11 +20,11 @@
   ],
   "license": "ISC",
   "peerDependencies": {
-    "@gershy/clearing": "^0.0.52"
+    "@gershy/clearing": "^0.0.53"
   },
   "devDependencies": {
-    "@gershy/disk": "^0.0.35",
-    "@gershy/logger": "^0.0.20",
+    "@gershy/disk": "^0.0.36",
+    "@gershy/logger": "^0.0.21",
     "@types/node": "^24.10.1"
   },
   "dependencies": {
