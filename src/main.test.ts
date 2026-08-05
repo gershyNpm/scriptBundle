@@ -1,7 +1,7 @@
 import { rootFact } from '@gershy/disk';
 import { assertEqual, testRunner } from '../build/utils.test.ts';
 import scriptBundle from './main.ts';
-import evalCjs from './evalCjs/main.ts';
+import evalCjs from './util/evalCjs.ts';
 
 // Type testing
 (async () => {

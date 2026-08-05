@@ -18,7 +18,7 @@ type ScriptBundleArgs = {
 export default async (args: ScriptBundleArgs) => {
   
   const err = Error('');
-  const { platform, debug, dirFact, script, externalImportUrls: externalImportPaths } = args;
+  const { platform, debug, dirFact, script, externalImportUrls } = args;
   
   const replaceTrg = (term: string) => `__esbuild_replace_target_${term.replace(/[^a-zA-Z0-9_$]/g, '_')}`;
   const result = await esbuild.build({
@@ -37,7 +37,7 @@ export default async (args: ScriptBundleArgs) => {
     minify:      !debug,
     write:       false,
     sourcemap:   debug ? 'inline' : false,
-    external:    externalImportPaths ?? []
+    external:    externalImportUrls ?? []
   })
     .catch(cause => err[cl.fire]({
       msg: cause.message,
