@@ -1,6 +1,6 @@
 {
   "name": "@gershy/script-bundle",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "author": "Gershom Maes",
   "description": "TODO",
   "keywords": [
@@ -23,7 +23,7 @@
     "@gershy/clearing": "^0.0.54"
   },
   "devDependencies": {
-    "@gershy/disk": "^0.0.39",
+    "@gershy/disk": "^0.0.40",
     "@gershy/logger": "^0.0.22",
     "@types/node": "^24.10.1"
   },
